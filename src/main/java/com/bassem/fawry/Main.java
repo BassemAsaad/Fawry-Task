@@ -1,4 +1,4 @@
-package com.pioneers.fawry;
+package com.bassem.fawry;
 
 public class Main {
 
@@ -23,14 +23,14 @@ public class Main {
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------------------------");
 
-//        Car hybridCar = factory.createCar(EngineType.HYBRID);
-//        hybridCar.start();
-//
-//        for (int i = 0; i < 4; i++) {
-//            hybridCar.accelerate();
-//        }
-//
-//        hybridCar.stop();
+        Car hybridCar = factory.createCar(EngineType.HYBRID);
+        hybridCar.start();
+
+        for (int i = 0; i < 4; i++) {
+            hybridCar.accelerate();
+        }
+
+        hybridCar.stop();
 
 
     }

@@ -1,34 +1,30 @@
-package com.pioneers.fawry;
+package com.bassem.fawry;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class ElectricEngine implements Engine {
     protected boolean isEngineOn;
     protected int engineSpeed;
-    private Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
 
     @Override
     public void start() {
         if (isEngineOn) {
-            log.warn("Engine Already statred");
+            System.out.println("Engine Already statred");
             return;
         }
         engineSpeed = 0;
         isEngineOn = true;
-        log.info("start");
+        System.out.println("start");
     }
 
     @Override
     public void stop() {
         if (!isEngineOn) {
-            log.warn("Engine is not started");
+            System.out.println("Engine is not started");
             return;
         }
         isEngineOn = false;
-        log.info("stop");
+        System.out.println("stop");
     }
 
     @Override
@@ -39,37 +35,37 @@ public class ElectricEngine implements Engine {
     @Override
     public void increase() {
         if (!isEngineOn) {
-            log.warn("Engine is not started");
+            System.out.println("Engine is not started");
             return;
         }
         engineSpeed++;
-        log.info("increased speed: {}", engineSpeed);
+        System.out.println("increased speed: " + engineSpeed);
     }
 
     @Override
     public void decrease() {
         if (!isEngineOn) {
-            log.warn("Engine is not started");
+            System.out.println("Engine is not started");
             return;
         }
         engineSpeed--;
-        log.info("decreased speed: {}", engineSpeed);
+        System.out.println("decreased speed: " + engineSpeed);
     }
 
     @Override
     public void onSpeedChange(final int targetSpeed) {
         if (!isEngineOn) {
-            log.warn("Engine is not started");
+            System.out.println("Engine is not started");
             return;
         }
-        log.info("onSpeedChange");
+        System.out.println("onSpeedChange");
         while (targetSpeed > engineSpeed) {
             increase();
         }
         while (targetSpeed < engineSpeed) {
             decrease();
         }
-        log.info("final speed: {}", engineSpeed);
+        System.out.println("final speed: " + engineSpeed);
     }
 
     @Override

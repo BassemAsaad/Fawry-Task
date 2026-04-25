@@ -1,11 +1,6 @@
-package com.pioneers.fawry;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.bassem.fawry;
 
 public class HybridEngine implements Engine {
-    private Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     private Engine activeEngine;
     private static final int MAX_ELECTRIC_SPEED = 50;
@@ -36,11 +31,11 @@ public class HybridEngine implements Engine {
 
     @Override
     public void onSpeedChange(final int targetSpeed) {
-        log.info("onSpeedChange");
-        log.info("current Speed is: " + activeEngine.retrieveSpeed() + " and target Speed is: " + targetSpeed);
+        System.out.println("onSpeedChange");
+        System.out.println("current Speed is: " + activeEngine.retrieveSpeed() + " and target Speed is: " + targetSpeed);
 
         final EngineType tempEngineType = targetSpeed >= MAX_ELECTRIC_SPEED ? EngineType.GAS : EngineType.ELECTRIC;
-        log.info("tempEngineType: " + tempEngineType);
+        System.out.println("tempEngineType: " + tempEngineType);
 
         final boolean isEnginesNotMatched = !(activeEngine.retrieveEngineType().equals(tempEngineType));
 
@@ -56,12 +51,10 @@ public class HybridEngine implements Engine {
         }
         activeEngine.onSpeedChange(targetSpeed);
 
-
-        log.info("final speed: {}", activeEngine.retrieveSpeed());
-
+        System.out.println("final speed: " + activeEngine.retrieveSpeed());
     }
     private void replaceEngine(final EngineType tempEngineType) {
-        log.info("replaceEngine");
+        System.out.println("replacing engine from " + activeEngine.retrieveEngineType() + " to " + tempEngineType);
         final int tempSpeed = activeEngine.retrieveSpeed();
         activeEngine.stop();
 
