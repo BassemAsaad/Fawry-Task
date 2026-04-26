@@ -3,15 +3,14 @@ package com.bassem.fawry;
 public class Main {
 
     public static void main(String[] args) {
-        CarFactory factory = new CarFactory();
 
-        Car car = factory.createCar(EngineType.ELECTRIC);
+        Car car = CarFactory.createCar(EngineType.ELECTRIC);
         car.start();
 
         car.accelerate();
         car.accelerate();
 
-        factory.replaceEngine(car, EngineType.GAS);
+        CarFactory.replaceEngine(car, EngineType.GAS);
         car.accelerate();
 
         car.brake();
@@ -23,7 +22,7 @@ public class Main {
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------------------------");
 
-        Car hybridCar = factory.createCar(EngineType.HYBRID);
+        Car hybridCar = CarFactory.createCar(EngineType.HYBRID);
         hybridCar.start();
 
         for (int i = 0; i < 4; i++) {

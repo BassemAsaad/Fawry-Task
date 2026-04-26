@@ -34,33 +34,35 @@ public class HybridEngine implements Engine {
         System.out.println("onSpeedChange");
         System.out.println("current Speed is: " + activeEngine.retrieveSpeed() + " and target Speed is: " + targetSpeed);
 
-        final EngineType tempEngineType = targetSpeed >= MAX_ELECTRIC_SPEED ? EngineType.GAS : EngineType.ELECTRIC;
-        System.out.println("tempEngineType: " + tempEngineType);
+        final EngineType engineType = targetSpeed >= MAX_ELECTRIC_SPEED ? EngineType.GAS : EngineType.ELECTRIC;
+        System.out.println("engineType: " + engineType);
 
-        final boolean isEnginesNotMatched = !(activeEngine.retrieveEngineType().equals(tempEngineType));
+        final boolean isEnginesNotMatched = !(activeEngine.retrieveEngineType().equals(engineType));
 
         if (isEnginesNotMatched && targetSpeed >= MAX_ELECTRIC_SPEED) {
 
             while (activeEngine.retrieveSpeed() < MAX_ELECTRIC_SPEED) increase();
-            replaceEngine(tempEngineType);
+            activeEngine = replaceEngine(engineType);
 
         } else if(isEnginesNotMatched){
 
             while (activeEngine.retrieveSpeed() > MAX_ELECTRIC_SPEED) decrease();
-            replaceEngine(tempEngineType);
+            activeEngine = replaceEngine(engineType);
         }
+
         activeEngine.onSpeedChange(targetSpeed);
 
         System.out.println("final speed: " + activeEngine.retrieveSpeed());
     }
-    private void replaceEngine(final EngineType tempEngineType) {
-        System.out.println("replacing engine from " + activeEngine.retrieveEngineType() + " to " + tempEngineType);
+    private Engine replaceEngine(final EngineType engineType) {
+        System.out.println("replacing engine from " + activeEngine.retrieveEngineType() + " to " + engineType);
         final int tempSpeed = activeEngine.retrieveSpeed();
         activeEngine.stop();
 
-        activeEngine = tempEngineType == EngineType.ELECTRIC ? new ElectricEngine() : new GasEngine();
-        activeEngine.start();
-        activeEngine.onSpeedChange(tempSpeed);
+        Engine newEngine = CarFactory.createEngine(engineType);
+        newEngine.start();
+        newEngine.onSpeedChange(tempSpeed);
+        return newEngine;
     }
 
     @Override

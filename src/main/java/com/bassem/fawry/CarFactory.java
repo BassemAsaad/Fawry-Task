@@ -1,16 +1,20 @@
 package com.bassem.fawry;
 
-public class CarFactory {
+public final class CarFactory {
 
-    public Car createCar(EngineType engineType) {
+    private CarFactory() {
+        throw new AssertionError("Utility class");
+    }
+
+    public static Car createCar(EngineType engineType) {
         return new Car(createEngine(engineType));
     }
 
-    public void replaceEngine(Car car, EngineType engineType) {
+    public static void replaceEngine(Car car, EngineType engineType) {
         car.replaceEngine(createEngine(engineType));
     }
 
-    private Engine createEngine(EngineType engineType){
+    public static Engine createEngine(EngineType engineType) {
         return switch (engineType) {
             case ELECTRIC -> new ElectricEngine();
             case GAS -> new GasEngine();
