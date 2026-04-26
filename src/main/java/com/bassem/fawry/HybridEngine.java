@@ -42,26 +42,25 @@ public class HybridEngine implements Engine {
         if (isEnginesNotMatched && targetSpeed >= MAX_ELECTRIC_SPEED) {
 
             while (activeEngine.retrieveSpeed() < MAX_ELECTRIC_SPEED) increase();
-            activeEngine = replaceEngine(engineType);
+            activeEngine.stop();
+            activeEngine = createEngineWithCurrentSpeed(engineType, activeEngine.retrieveSpeed());
 
         } else if(isEnginesNotMatched){
 
             while (activeEngine.retrieveSpeed() > MAX_ELECTRIC_SPEED) decrease();
-            activeEngine = replaceEngine(engineType);
+            activeEngine.stop();
+            activeEngine = createEngineWithCurrentSpeed(engineType, activeEngine.retrieveSpeed());
         }
 
         activeEngine.onSpeedChange(targetSpeed);
 
         System.out.println("final speed: " + activeEngine.retrieveSpeed());
     }
-    private Engine replaceEngine(final EngineType engineType) {
+    private Engine createEngineWithCurrentSpeed(final EngineType engineType, final int currentSpeed) {
         System.out.println("replacing engine from " + activeEngine.retrieveEngineType() + " to " + engineType);
-        final int tempSpeed = activeEngine.retrieveSpeed();
-        activeEngine.stop();
-
         Engine newEngine = EngineFactory.createEngine(engineType);
         newEngine.start();
-        newEngine.onSpeedChange(tempSpeed);
+        newEngine.updateSpeed(currentSpeed);
         return newEngine;
     }
 
@@ -80,6 +79,9 @@ public class HybridEngine implements Engine {
         return activeEngine.retrieveEngineType();
     }
 
-
+    @Override
+    public void updateSpeed(int targetSpeed) {
+        activeEngine.updateSpeed(targetSpeed);
+    }
 }
 

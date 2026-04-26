@@ -74,6 +74,11 @@ public class ElectricEngine implements Engine {
     }
 
     @Override
+    public void updateSpeed(int targetSpeed) {
+        engineSpeed = targetSpeed;
+    }
+
+    @Override
     public EngineType retrieveEngineType() {
         return EngineType.ELECTRIC;
     }
