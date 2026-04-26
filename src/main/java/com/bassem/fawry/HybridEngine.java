@@ -59,7 +59,7 @@ public class HybridEngine implements Engine {
         final int tempSpeed = activeEngine.retrieveSpeed();
         activeEngine.stop();
 
-        Engine newEngine = CarFactory.createEngine(engineType);
+        Engine newEngine = EngineFactory.createEngine(engineType);
         newEngine.start();
         newEngine.onSpeedChange(tempSpeed);
         return newEngine;

@@ -7,18 +7,11 @@ public final class CarFactory {
     }
 
     public static Car createCar(EngineType engineType) {
-        return new Car(createEngine(engineType));
+        return new Car(EngineFactory.createEngine(engineType));
     }
 
     public static void replaceEngine(Car car, EngineType engineType) {
-        car.replaceEngine(createEngine(engineType));
+        car.replaceEngine(EngineFactory.createEngine(engineType));
     }
 
-    public static Engine createEngine(EngineType engineType) {
-        return switch (engineType) {
-            case ELECTRIC -> new ElectricEngine();
-            case GAS -> new GasEngine();
-            case HYBRID -> new HybridEngine();
-        };
-    }
 }
