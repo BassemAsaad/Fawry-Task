@@ -10,7 +10,7 @@ public interface Engine {
 
     void onSpeedChange(int targetSpeed);
     int retrieveSpeed();
-    public void updateSpeed(int targetSpeed);
+    void updateSpeed(int targetSpeed);
 
     EngineType retrieveEngineType();
 }
